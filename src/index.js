@@ -49,7 +49,6 @@ function addToyToList(name, image) {
       "likes": 0
     })
   }
-
   fetch(toyUrl, options)
     .then(res => res.json())
     .then(toy => writeToy(toy))
