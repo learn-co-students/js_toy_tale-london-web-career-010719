@@ -16,6 +16,7 @@ function fetchToys() {
 function writeToy(toy) {
   const toyEl = document.createElement('div')
   toyEl.className = 'card'
+  toyEl.dataset.id = toy.id
   toyEl.innerHTML = `
     <h2>${toy.name}</h2>
     <img class="toy-avatar" src="${toy.image}" >
@@ -25,7 +26,6 @@ function writeToy(toy) {
   toyContainer.append(toyEl)
   toyEl.querySelector('button').addEventListener('click', () => {
     updateToy(likeToy(toy))
-      .then (displayToyList)
   })
 }
 
@@ -56,6 +56,7 @@ function addToyToList(name, image) {
 
 function likeToy(toy) {
   toy.likes += 1
+  findToyElement(toy).querySelector('p').innerText = `${toy.likes} Likes`
   return toy
 }
 
@@ -70,6 +71,10 @@ function updateToy(toy) {
   }
   return fetch(url, options)
     .then(res => res.json())
+}
+
+function findToyElement(toy) {
+  return document.querySelector( `[data-id='${toy.id}']`)
 }
 
 
